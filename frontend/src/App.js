@@ -24,6 +24,7 @@ function App() {
   };
 
   const addTask = async (taskData) => {
+    console.log(taskData)
     try {
       const response = await axios.post('http://localhost:5000/api/tasks', taskData);
       setTasks([...tasks, response.data]);
@@ -45,7 +46,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1> Domestic Tasks Tracker</h1>
+        <h1> Domestic Task Tracker</h1>
         <p className="subtitle">Track your recurring household chores</p>
       </header>
       

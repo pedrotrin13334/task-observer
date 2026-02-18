@@ -23,11 +23,11 @@ def get_tasks():
 def create_task():
     """Create a new task or tracking item."""
     data = request.json
-    
-    if data.get('type') == 'tracking-item':
+
+    if data.get('item_type') == 'tracking-item':
         item = storage.add_tracking_item(
             name=data['name'],
-            target_unit='minutes',  # You might want to make this configurable
+            target_unit='days',  # You might want to make this configurable
             target_value=data['expected_time'],
             description=data.get('description', '')
         )
