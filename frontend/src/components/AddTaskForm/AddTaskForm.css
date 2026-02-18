@@ -1,0 +1,106 @@
+.add-task-form {
+    background: #f3eadb;
+    background-image: linear-gradient(145deg, #f8f1e4 0%, #e8d5b5 100%);
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #b89b7b;
+    border-bottom: 3px solid #8b6b4d;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    position: relative;
+  }
+  
+  .add-task-form h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #5c3e2d;
+    font-size: 1.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #d4b28c;
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .add-task-form h3::before {
+    content: "📜";
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 15px 20px;
+    background: #fff9f0;
+    border: 1px solid #d4b28c;
+    border-bottom: 2px solid #b89b7b;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #3a2c1f;
+    transition: all 0.2s ease;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #8b6b4d;
+    background: #fffcf5;
+    box-shadow: inset 2px 2px 8px rgba(139, 69, 19, 0.05);
+  }
+  
+  .form-group input::placeholder {
+    color: #b89b7b;
+    font-style: italic;
+    font-size: 1rem;
+  }
+  
+  .add-button {
+    background: #5c3e2d;
+    color: #f0e2c5;
+    border: none;
+    border-bottom: 3px solid #3a2c1f;
+    padding: 15px 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .add-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .add-button:hover {
+    background: #6b4f3a;
+    border-bottom-color: #5c3e2d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .add-button:hover::before {
+    left: 100%;
+  }
+  
+  .add-button:active {
+    transform: translateY(0);
+    border-bottom-width: 1px;
+  }
