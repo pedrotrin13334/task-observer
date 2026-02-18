@@ -1,0 +1,19 @@
+# Backend
+backend/task-observer-venv/
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+backend/.flaskenv
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
