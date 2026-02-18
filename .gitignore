@@ -4,6 +4,10 @@ backend/__pycache__/
 backend/*.pyc
 backend/.env
 backend/.flaskenv
+backend/app/__pycache__/
+backend/app/task_storage/data/
+backend/app/task_storage/__pycache__/
+backend/data/
 
 # Frontend
 frontend/node_modules/

@@ -48,9 +48,6 @@ body::before {
   margin-bottom: 20px;
 }
 
-.App-header::before,
-
-
 .App-header::before {
   top: 0;
 }

@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from datetime import datetime, timedelta
-import random
+from datetime import datetime  
+from app.task_storage.task_storage_handler import TaskStorageHandler
 
 app = Flask(__name__)
 CORS(app)
+
+# Initialize storage handler
+storage = TaskStorageHandler()
 
 # In-memory database (replace with real database later)
 tasks = {}
@@ -12,51 +15,39 @@ completion_history = {}
 
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
-    return jsonify(list(tasks.values()))
+    tasks = storage.get_all_tasks()
+    tracking_items = storage.get_all_tracking_items()
+    return jsonify(tasks + tracking_items)
 
 @app.route('/api/tasks', methods=['POST'])
 def create_task():
+    """Create a new task or tracking item."""
     data = request.json
-    task_id = str(len(tasks) + 1)
-    task = {
-        'id': task_id,
-        'name': data['name'],
-        'expected_time': data['expected_time'],
-        'created_at': datetime.now().isoformat(),
-        'last_completed': None,
-        'current_streak': 0,
-        'status': 'pending'
-    }
-    tasks[task_id] = task
-    completion_history[task_id] = []
-    return jsonify(task)
+    
+    if data.get('type') == 'tracking-item':
+        item = storage.add_tracking_item(
+            name=data['name'],
+            target_unit='minutes',  # You might want to make this configurable
+            target_value=data['expected_time'],
+            description=data.get('description', '')
+        )
+    else:
+        item = storage.add_task(
+            name=data['name'],
+            expected_time=data['expected_time'],
+            description=data.get('description', '')
+        )
+    
+    return jsonify(item)
 
 @app.route('/api/tasks/<task_id>/complete', methods=['POST'])
 def complete_task(task_id):
-    if task_id in tasks:
-        now = datetime.now()
-        task = tasks[task_id]
-        
-        # Calculate time since last completion
-        if task['last_completed']:
-            last = datetime.fromisoformat(task['last_completed'])
-            time_diff = (now - last).total_seconds() / 3600  # hours
-        else:
-            time_diff = 0
-        
-        # Update task
-        task['last_completed'] = now.isoformat()
-        task['current_streak'] += 1
-        
-        # Record completion
-        completion = {
-            'timestamp': now.isoformat(),
-            'time_since_last': time_diff
-        }
-        completion_history[task_id].append(completion)
-        
+    """Record a task completion."""
+    try:
+        task = storage.record_task_completion(task_id)
         return jsonify(task)
-    return jsonify({'error': 'Task not found'}), 404
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 404
 
 @app.route('/api/tasks/<task_id>/history', methods=['GET'])
 def get_task_history(task_id):
