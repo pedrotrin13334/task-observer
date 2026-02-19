@@ -60,7 +60,7 @@ function App() {
           ) : tasks.length === 0 ? (
             <p className="no-tasks">No tasks yet. Add your first task above!</p>
           ) : (
-            tasks.map(task => (
+            tasks.slice().reverse().map(task => (
               <Task 
                 key={task.id} 
                 task={task} 
